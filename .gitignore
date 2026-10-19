@@ -1,0 +1,12 @@
+# SwiftPM / build output
+.build/
+build/
+*.xcodeproj/
+.swiftpm/
+DerivedData/
+
+# Prebuilt frameworks (downloaded by scripts/setup.sh)
+Vendor/
+
+# macOS
+.DS_Store
