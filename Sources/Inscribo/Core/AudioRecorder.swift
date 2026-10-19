@@ -38,10 +38,10 @@ final class AudioRecorder: @unchecked Sendable {
 
         let inputFormat = input.outputFormat(forBus: 0)
         guard inputFormat.sampleRate > 0, inputFormat.channelCount > 0 else {
-            throw NSError(domain: "Bakdo", code: 1, userInfo: [NSLocalizedDescriptionKey: "No microphone found"])
+            throw NSError(domain: "Inscribo", code: 1, userInfo: [NSLocalizedDescriptionKey: "No microphone found"])
         }
         guard let converter = AVAudioConverter(from: inputFormat, to: targetFormat) else {
-            throw NSError(domain: "Bakdo", code: 2, userInfo: [NSLocalizedDescriptionKey: "Unsupported microphone format"])
+            throw NSError(domain: "Inscribo", code: 2, userInfo: [NSLocalizedDescriptionKey: "Unsupported microphone format"])
         }
 
         let ratio = targetFormat.sampleRate / inputFormat.sampleRate

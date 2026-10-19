@@ -60,11 +60,11 @@ final class ModelManager {
 
     nonisolated static var modelsDirectory: URL {
         let base: URL
-        if let override = ProcessInfo.processInfo.environment["BAKDO_MODELS_DIR"] {
+        if let override = ProcessInfo.processInfo.environment["INSCRIBO_MODELS_DIR"] {
             base = URL(fileURLWithPath: override, isDirectory: true)
         } else {
             base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-                .appendingPathComponent("Bakdo/Models", isDirectory: true)
+                .appendingPathComponent("Inscribo/Models", isDirectory: true)
         }
         try? FileManager.default.createDirectory(at: base, withIntermediateDirectories: true)
         return base
@@ -106,7 +106,7 @@ final class ModelManager {
                 self.downloads[model.id] = .idle
                 self.tasks[model.id] = nil
                 self.refresh()
-                NotificationCenter.default.post(name: .bakdoModelInstalled, object: model.id)
+                NotificationCenter.default.post(name: .inscriboModelInstalled, object: model.id)
             } catch {
                 guard let self else { return }
                 self.tasks[model.id] = nil
@@ -225,5 +225,5 @@ enum ChunkedDownloader {
 }
 
 extension Notification.Name {
-    static let bakdoModelInstalled = Notification.Name("bakdoModelInstalled")
+    static let inscriboModelInstalled = Notification.Name("inscriboModelInstalled")
 }

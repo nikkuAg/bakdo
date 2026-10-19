@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
 
-/// Debug aid: `Bakdo --snapshot <dir>` renders each screen to PNG, in light and dark mode,
+/// Debug aid: `Inscribo --snapshot <dir>` renders each screen to PNG, in light and dark mode,
 /// with sample history. Nothing is written to the user's settings or history.
 @MainActor
 enum Snapshot {
@@ -87,7 +87,7 @@ enum Snapshot {
             ("pill-3-listening-loud", { controller.debugShow(phase: .recording, levels: voice(0.95)) }),
             ("pill-4-handsfree", { controller.debugShow(phase: .recording, handsFree: true, levels: voice(0.5)) }),
             ("pill-5-writing", { controller.debugShow(phase: .transcribing) }),
-            ("pill-6-done", { controller.debugShow(phase: .idle, done: "Typed 12 words") }),
+            ("pill-6-done", { controller.debugShow(phase: .idle, done: "Inscribed 12 words") }),
             ("pill-7-idle", { controller.debugShow(phase: .idle) }),
         ]
         for (name, apply) in states {

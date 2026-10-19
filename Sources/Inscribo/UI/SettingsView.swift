@@ -45,8 +45,8 @@ struct SettingsView: View {
 
             Card {
                 VStack(alignment: .leading, spacing: 12) {
-                    SectionHeader(title: "Fix selected text",
-                                  detail: "Select text in any app and press the shortcut — Bakdo fixes typos and grammar in place.")
+                    SectionHeader(title: "Reparo — fix selected text",
+                                  detail: "Select text in any app and press the shortcut — Inscribo fixes typos and grammar in place.")
                     Toggle("Enable shortcut", isOn: $settings.fixShortcutEnabled)
                         .toggleStyle(.checkbox)
                         .onChange(of: settings.fixShortcutEnabled) {
@@ -82,7 +82,7 @@ struct SettingsView: View {
 
             Card {
                 VStack(alignment: .leading, spacing: 12) {
-                    SectionHeader(title: "Writing", detail: "How Bakdo cleans up what you say before typing it.")
+                    SectionHeader(title: "Writing", detail: "How Inscribo cleans up what you say before typing it.")
                     Toggle("Remove filler words (um, uh, hmm) and stutters", isOn: $settings.removeFillers)
                     Toggle("Voice commands (“new line”, “new paragraph”)", isOn: $settings.spokenCommands)
                     Toggle("Add a space when continuing a sentence", isOn: $settings.smartSpacing)
@@ -131,7 +131,7 @@ struct SettingsView: View {
                 Button("Delete All", role: .destructive) { HistoryStore.shared.clear() }
             }
 
-            Text("Bakdo \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "dev") · Speech models by OpenAI (Whisper) and Oriserve, run with whisper.cpp")
+            Text("Inscribo \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "dev") · Speech models by OpenAI (Whisper) and Oriserve, run with whisper.cpp")
                 .font(.system(size: 11))
                 .foregroundStyle(.tertiary)
         }
@@ -148,7 +148,7 @@ struct PermissionsCard: View {
     var body: some View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
-                SectionHeader(title: "Permissions", detail: "Bakdo listens only while you hold the key, and types by pasting into the focused app.")
+                SectionHeader(title: "Permissions", detail: "Inscribo listens only while you hold the key, and types by pasting into the focused app.")
                 PermissionRow(title: "Microphone", detail: "To hear you", symbol: "mic.fill",
                               granted: permissions.microphone == .authorized) {
                     Task { _ = await permissions.requestMicrophone() }

@@ -47,7 +47,7 @@ struct OnboardingView: View {
                     Button("Back") { go(step - 1) }.buttonStyle(SecondaryButtonStyle())
                 }
                 Spacer()
-                Button(step == stepCount - 1 ? "Start using Bakdo" : "Continue") {
+                Button(step == stepCount - 1 ? "Begin casting" : "Continue") {
                     if step == stepCount - 1 {
                         withAnimation { settings.hasCompletedOnboarding = true }
                     } else {
@@ -65,8 +65,8 @@ struct OnboardingView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             ZStack {
-                Color(nsColor: .windowBackgroundColor)
-                RadialGradient(colors: [Theme.accent.opacity(0.13), .clear], center: .top, startRadius: 0, endRadius: 520)
+                Theme.page
+                RadialGradient(colors: [Theme.gold.opacity(0.16), .clear], center: .top, startRadius: 0, endRadius: 520)
             }
         )
         .onAppear { permissions.startPolling() }
@@ -88,17 +88,17 @@ struct OnboardingView: View {
         VStack(spacing: 18) {
             AppMark(size: 76)
                 .shadow(color: Theme.accent.opacity(0.35), radius: 18, y: 8)
-            Text("Bas bak do.")
+            Text("Inscribo!")
                 .font(Theme.title(40))
-            Text("Say it in English, Hindi or Hinglish — Bakdo types it into any app and fixes the grammar too. It runs completely on your Mac, so it's private and works offline.")
+            Text("The Inscribing Charm for your Mac. Speak in English, Hindi or Hinglish and your words appear in any app, spelled right. All the magic happens on your Mac — nothing ever leaves it.")
                 .font(.system(size: 15))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             HStack(spacing: 24) {
-                Feature(symbol: "keyboard", text: "Works in every text box")
-                Feature(symbol: "lock.shield", text: "100% on-device")
-                Feature(symbol: "character.bubble", text: "Understands Hinglish")
+                Feature(symbol: "wand.and.stars", text: "Works in every text box")
+                Feature(symbol: "lock.shield", text: "Cast entirely on-device")
+                Feature(symbol: "book.closed", text: "Fluent in Hinglish")
             }
             .padding(.top, 10)
         }
@@ -106,13 +106,13 @@ struct OnboardingView: View {
 
     private var permissionsStep: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Two quick permissions").font(Theme.title(30))
-            Text("Bakdo listens only while you hold the shortcut, and types by pasting into whatever text box you're in.")
+            Text("Two permissions for the charm").font(Theme.title(30))
+            Text("Inscribo listens only while you hold the shortcut, and types by pasting into whatever text box you're in.")
                 .font(.system(size: 14))
                 .foregroundStyle(.secondary)
             PermissionsCard()
             if permissions.microphone == .authorized && !permissions.accessibility {
-                Text("After switching Bakdo on in System Settings › Privacy & Security › Accessibility, come back here — this page updates by itself.")
+                Text("After switching Inscribo on in System Settings › Privacy & Security › Accessibility, come back here — this page updates by itself.")
                     .font(.system(size: 12))
                     .foregroundStyle(.secondary)
             }
@@ -121,7 +121,7 @@ struct OnboardingView: View {
 
     private var modelStep: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Getting the models").font(Theme.title(30))
+            Text("Brewing the magic").font(Theme.title(30))
             Text("One model understands English, Hindi and Hinglish, and a small writing model fixes grammar and typos — no settings to pick. They download once (about 1.9 GB), then everything runs offline on your Mac's GPU.")
                 .font(.system(size: 14))
                 .foregroundStyle(.secondary)
@@ -146,7 +146,7 @@ struct OnboardingView: View {
 
     private var tryStep: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Give it a try").font(Theme.title(30))
+            Text("Cast your first charm").font(Theme.title(30))
             HStack(spacing: 6) {
                 Text("Hold")
                 KeyCap(text: "space")

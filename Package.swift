@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Bakdo",
+    name: "Inscribo",
     platforms: [.macOS(.v14)],
     targets: [
         .binaryTarget(
@@ -14,9 +14,9 @@ let package = Package(
             path: "Vendor/build-apple/llama.xcframework"
         ),
         .executableTarget(
-            name: "Bakdo",
+            name: "Inscribo",
             dependencies: ["whisper", "llama"],
-            path: "Sources/Bakdo",
+            path: "Sources/Inscribo",
             swiftSettings: [.swiftLanguageMode(.v5)],
             linkerSettings: [
                 .unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@executable_path/../Frameworks"])

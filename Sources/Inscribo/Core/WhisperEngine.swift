@@ -33,7 +33,7 @@ enum WhisperError: LocalizedError {
 final class WhisperEngine: @unchecked Sendable {
     static let sampleRate = 16_000
 
-    private let queue = DispatchQueue(label: "bakdo.whisper", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "inscribo.whisper", qos: .userInitiated)
     private var context: OpaquePointer?
     private(set) var loadedModel: ModelInfo?
 
@@ -43,7 +43,7 @@ final class WhisperEngine: @unchecked Sendable {
     }
 
     init() {
-        if ProcessInfo.processInfo.environment["BAKDO_DEBUG"] == nil {
+        if ProcessInfo.processInfo.environment["INSCRIBO_DEBUG"] == nil {
             whisper_log_set({ _, _, _ in }, nil)
         }
     }

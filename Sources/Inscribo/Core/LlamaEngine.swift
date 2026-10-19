@@ -28,7 +28,7 @@ struct ChatMessage {
 /// Small on-device language model (llama.cpp on Metal) used to fix grammar and typos.
 /// All calls run on one serial queue; the context is reset before every request.
 final class LlamaEngine: @unchecked Sendable {
-    private let queue = DispatchQueue(label: "bakdo.llama", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "inscribo.llama", qos: .userInitiated)
     private var model: OpaquePointer?
     private var context: OpaquePointer?
     private var sampler: UnsafeMutablePointer<llama_sampler>?
@@ -45,7 +45,7 @@ final class LlamaEngine: @unchecked Sendable {
     /// Metal setup compiles shaders (several seconds of CPU), so it waits until a model is actually loaded.
     private func initBackendIfNeeded() {
         guard !backendReady else { return }
-        if ProcessInfo.processInfo.environment["BAKDO_DEBUG"] == nil {
+        if ProcessInfo.processInfo.environment["INSCRIBO_DEBUG"] == nil {
             llama_log_set({ _, _, _ in }, nil)
         }
         llama_backend_init()

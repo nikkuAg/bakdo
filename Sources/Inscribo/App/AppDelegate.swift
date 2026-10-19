@@ -50,7 +50,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
             let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1000, height: 680),
                                   styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
                                   backing: .buffered, defer: false)
-            window.title = "Bakdo"
+            window.title = "Inscribo"
             window.titlebarAppearsTransparent = true
             window.titleVisibility = .hidden
             window.isMovableByWindowBackground = true
@@ -62,7 +62,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
             host.sizingOptions = []
             window.contentView = host
             window.center()
-            window.setFrameAutosaveName("BakdoMainWindow")
+            window.setFrameAutosaveName("InscriboMainWindow")
             mainWindow = window
         }
         if !settings.showInDock { NSApp.setActivationPolicy(.regular) }
@@ -119,8 +119,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         copy.isEnabled = !HistoryStore.shared.items.isEmpty
 
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Open Bakdo", action: #selector(openApp), keyEquivalent: "o").target = self
-        menu.addItem(withTitle: "Quit Bakdo", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        menu.addItem(withTitle: "Open Inscribo", action: #selector(openApp), keyEquivalent: "o").target = self
+        menu.addItem(withTitle: "Quit Inscribo", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
     }
 
     @objc private func openApp() { showMainWindow() }
@@ -143,10 +143,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
 
         let appItem = NSMenuItem()
         let appMenu = NSMenu()
-        appMenu.addItem(withTitle: "About Bakdo", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
+        appMenu.addItem(withTitle: "About Inscribo", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
         appMenu.addItem(.separator())
-        appMenu.addItem(withTitle: "Hide Bakdo", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
-        appMenu.addItem(withTitle: "Quit Bakdo", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        appMenu.addItem(withTitle: "Hide Inscribo", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
+        appMenu.addItem(withTitle: "Quit Inscribo", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         appItem.submenu = appMenu
         main.addItem(appItem)
 

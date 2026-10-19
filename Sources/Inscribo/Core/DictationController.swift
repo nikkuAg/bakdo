@@ -68,7 +68,7 @@ final class DictationController {
         hotkey.start()
         loadModel()
         loadWriter()
-        NotificationCenter.default.addObserver(forName: .bakdoModelInstalled, object: nil, queue: .main) { [weak self] note in
+        NotificationCenter.default.addObserver(forName: .inscriboModelInstalled, object: nil, queue: .main) { [weak self] note in
             Task { @MainActor in
                 guard let self else { return }
                 if (note.object as? String) == ModelCatalog.writer.id { self.loadWriter() } else { self.loadModel() }
@@ -201,7 +201,7 @@ final class DictationController {
         return "Speech model isn't downloaded yet"
     }
 
-    // MARK: - Hold Space inside Bakdo's own window
+    // MARK: - Hold Space inside Inscribo's own window
 
     var canStartInApp: Bool { engineState == .ready && (phase == .idle || isMessage) }
 
@@ -347,7 +347,7 @@ final class DictationController {
         Task {
             let prepared = await Task.detached(priority: .userInitiated) { AudioProcessing.prepare(samples) }.value
             guard let prepared else {
-                show("Didn't catch that", isError: false)
+                show("The charm fizzled — try again", isError: false)
                 return
             }
             do {
@@ -363,13 +363,13 @@ final class DictationController {
                 text = TextPostProcessor.process(text, options: .init(removeFillers: false, spokenCommands: false,
                                                                       replacements: replacements))
                 guard !text.isEmpty else {
-                    show("Didn't catch that", isError: false)
+                    show("The charm fizzled — try again", isError: false)
                     return
                 }
 
                 TextInserter.insert(text, smartSpacing: smartSpacing)
                 let words = TextPostProcessor.wordCount(text)
-                flashDone(words == 1 ? "Typed 1 word" : "Typed \(words) words")
+                flashDone(words == 1 ? "Inscribed 1 word" : "Inscribed \(words) words")
                 var transcript = Transcript(date: Date(), text: text, rawText: result.text,
                                             audioSeconds: seconds, processingSeconds: result.processingSeconds,
                                             language: "auto", appName: app)
@@ -420,7 +420,7 @@ final class DictationController {
                 return
             }
             TextInserter.replaceSelection(with: corrected)
-            flashDone("Fixed")
+            flashDone("Reparo! Fixed")
             Sounds.play(.stop)
             phase = .idle
             committed = false

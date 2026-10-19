@@ -21,7 +21,7 @@ struct TrainingSample: Codable, Identifiable, Hashable {
 }
 
 /// Stores training recordings as 16 kHz mono WAV files plus a manifest, all under
-/// ~/Library/Application Support/Bakdo/Training. Nothing leaves the Mac.
+/// ~/Library/Application Support/Inscribo/Training. Nothing leaves the Mac.
 @MainActor
 @Observable
 final class TrainingStore {

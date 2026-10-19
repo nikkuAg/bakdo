@@ -1,10 +1,10 @@
 #!/bin/bash
-# Builds Bakdo.app into ./build and (with --install) copies it to /Applications.
+# Builds Inscribo.app into ./build and (with --install) copies it to /Applications.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 VERSION="1.0.0"
-APP="build/Bakdo.app"
+APP="build/Inscribo.app"
 FRAMEWORKS=(
   "Vendor/build-apple/whisper.xcframework/macos-arm64_x86_64/whisper.framework"
   "Vendor/build-apple/llama.xcframework/macos-arm64_x86_64/llama.framework"
@@ -14,7 +14,7 @@ swift build -c release --arch arm64
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Frameworks" "$APP/Contents/Resources"
-cp .build/arm64-apple-macosx/release/Bakdo "$APP/Contents/MacOS/Bakdo"
+cp .build/arm64-apple-macosx/release/Inscribo "$APP/Contents/MacOS/Inscribo"
 for fw in "${FRAMEWORKS[@]}"; do
   name=$(basename "$fw" .framework)
   cp -R "$fw" "$APP/Contents/Frameworks/"
@@ -33,10 +33,10 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>CFBundleName</key><string>Bakdo</string>
-  <key>CFBundleDisplayName</key><string>Bakdo</string>
-  <key>CFBundleIdentifier</key><string>app.bakdo.mac</string>
-  <key>CFBundleExecutable</key><string>Bakdo</string>
+  <key>CFBundleName</key><string>Inscribo</string>
+  <key>CFBundleDisplayName</key><string>Inscribo</string>
+  <key>CFBundleIdentifier</key><string>app.inscribo.mac</string>
+  <key>CFBundleExecutable</key><string>Inscribo</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>${VERSION}</string>
   <key>CFBundleVersion</key><string>1</string>
@@ -45,7 +45,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>LSApplicationCategoryType</key><string>public.app-category.productivity</string>
   <key>NSHighResolutionCapable</key><true/>
   <key>NSPrincipalClass</key><string>NSApplication</string>
-  <key>NSMicrophoneUsageDescription</key><string>Bakdo listens while you hold the dictation key and turns your speech into text, entirely on this Mac.</string>
+  <key>NSMicrophoneUsageDescription</key><string>Inscribo listens while you hold the dictation key and turns your speech into text, entirely on this Mac.</string>
   <key>NSHumanReadableCopyright</key><string>Models: OpenAI Whisper + Oriserve Hindi2Hinglish, Qwen3.5 (Apache-2.0). Runtimes: whisper.cpp, llama.cpp (MIT).</string>
 </dict>
 </plist>
@@ -53,13 +53,13 @@ PLIST
 
 # Ad-hoc signature (no developer certificate on this machine).
 for fw in "$APP"/Contents/Frameworks/*.framework; do codesign --force --sign - "$fw"; done
-codesign --force --sign - --identifier app.bakdo.mac "$APP"
+codesign --force --sign - --identifier app.inscribo.mac "$APP"
 echo "Built $APP"
 
 if [[ "${1:-}" == "--install" ]]; then
-  pkill -x Bakdo 2>/dev/null || true
+  pkill -x Inscribo 2>/dev/null || true
   sleep 0.5
-  rm -rf /Applications/Bakdo.app
-  cp -R "$APP" /Applications/Bakdo.app
-  echo "Installed /Applications/Bakdo.app"
+  rm -rf /Applications/Inscribo.app
+  cp -R "$APP" /Applications/Inscribo.app
+  echo "Installed /Applications/Inscribo.app"
 fi

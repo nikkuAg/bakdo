@@ -15,7 +15,7 @@ enum Entry {
             return
         }
         if args.contains("--download") {
-            // `BAKDO_MODELS_DIR=/tmp/x Bakdo --download` — exercises the chunked downloader for every model.
+            // `INSCRIBO_MODELS_DIR=/tmp/x Inscribo --download` — exercises the chunked downloader for every model.
             let done = DispatchSemaphore(value: 0)
             Task.detached {
                 let only = args.firstIndex(of: "--download").flatMap { $0 + 1 < args.count ? args[$0 + 1] : nil }
@@ -34,7 +34,7 @@ enum Entry {
             return
         }
         if let i = args.firstIndex(of: "--accuracy-selftest"), i + 1 < args.count {
-            // `BAKDO_MODELS_DIR=<temp>/Models Bakdo --accuracy-selftest list.tsv` (lines: wav-path<TAB>reference text)
+            // `INSCRIBO_MODELS_DIR=<temp>/Models Inscribo --accuracy-selftest list.tsv` (lines: wav-path<TAB>reference text)
             MainActor.assumeIsolated { runAccuracySelfTest(list: args[i + 1]) }
             return
         }
@@ -52,7 +52,7 @@ enum Entry {
         app.run()
     }
 
-    /// `Bakdo --transcribe [--prompt "Glossary: …"] file.wav ...`
+    /// `Inscribo --transcribe [--prompt "Glossary: …"] file.wav ...`
     /// Used to check accuracy and speed without the UI.
     private static func runHeadless(files: [String]) {
         var files = files
@@ -107,7 +107,7 @@ enum Entry {
         done.wait()
     }
 
-    /// `Bakdo --correct model.gguf ["text" ...]` — runs the grammar fixer over sample sentences.
+    /// `Inscribo --correct model.gguf ["text" ...]` — runs the grammar fixer over sample sentences.
     private static func runCorrectionEval(modelPath: String, extra: [String]) {
         let samples = extra.isEmpty ? [
             "Main kal subah das baje office pahunch jaega, phir ham project ke baare mein baat karenge.",

@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
 
-/// Inside Bakdo's window: hold Space to dictate. If no text box has focus, the attached box is
+/// Inside Inscribo's window: hold Space to dictate. If no text box has focus, the attached box is
 /// focused first. A quick tap still types a normal space.
 @MainActor
 final class SpaceHoldMonitor {

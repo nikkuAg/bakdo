@@ -1,5 +1,5 @@
 #!/bin/bash
-# Checks the toolchain and downloads the prebuilt whisper.cpp and llama.cpp frameworks Bakdo links
+# Checks the toolchain and downloads the prebuilt whisper.cpp and llama.cpp frameworks Inscribo links
 # against (pinned versions, verified by SHA-256). Safe to run again; finished steps are skipped.
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -9,10 +9,10 @@ green() { printf "\033[32m%s\033[0m\n" "$*"; }
 fail() { red "✗ $*"; exit 1; }
 
 # --- Requirements -----------------------------------------------------------------------------
-[[ "$(uname -s)" == "Darwin" ]] || fail "Bakdo is a macOS app."
-[[ "$(uname -m)" == "arm64" ]] || fail "Bakdo needs an Apple Silicon Mac (M1 or newer)."
+[[ "$(uname -s)" == "Darwin" ]] || fail "Inscribo is a macOS app."
+[[ "$(uname -m)" == "arm64" ]] || fail "Inscribo needs an Apple Silicon Mac (M1 or newer)."
 macos_major=$(sw_vers -productVersion | cut -d. -f1)
-(( macos_major >= 14 )) || fail "Bakdo needs macOS 14 Sonoma or newer (you have $(sw_vers -productVersion))."
+(( macos_major >= 14 )) || fail "Inscribo needs macOS 14 Sonoma or newer (you have $(sw_vers -productVersion))."
 
 if ! xcode-select -p >/dev/null 2>&1 || ! command -v swift >/dev/null 2>&1; then
   red "✗ Apple's command line developer tools are missing."

@@ -70,7 +70,7 @@ final class HotkeyMonitor {
         self.tap = tap
         self.source = source
         isRunning = true
-        NotificationCenter.default.post(name: .bakdoHotkeyReady, object: nil)
+        NotificationCenter.default.post(name: .inscriboHotkeyReady, object: nil)
         return true
     }
 
@@ -129,5 +129,5 @@ final class HotkeyMonitor {
 }
 
 extension Notification.Name {
-    static let bakdoHotkeyReady = Notification.Name("bakdoHotkeyReady")
+    static let inscriboHotkeyReady = Notification.Name("inscriboHotkeyReady")
 }

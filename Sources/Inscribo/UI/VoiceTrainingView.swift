@@ -123,7 +123,7 @@ struct VoiceTrainingView: View {
 
     var body: some View {
         PageScaffold(title: "Voice training",
-                     subtitle: "Teach Bakdo your voice and accent. Recordings stay on this Mac and are only used to measure and train your personal model.") {
+                     subtitle: "Teach Inscribo your voice and accent. Recordings stay on this Mac and are only used to measure and train your personal model.") {
             progressCard
             readAloudCard
             accuracyCard
@@ -227,7 +227,7 @@ struct VoiceTrainingView: View {
                             if let message = recorder.message {
                                 Text(message).font(.system(size: 12)).foregroundStyle(Theme.warm)
                             } else {
-                                Text("Speak the way you normally do — your accent is exactly what Bakdo should learn.")
+                                Text("Speak the way you normally do — your accent is exactly what Inscribo should learn.")
                                     .font(.system(size: 12)).foregroundStyle(.secondary)
                             }
                         }
@@ -263,7 +263,7 @@ struct VoiceTrainingView: View {
         Card {
             VStack(alignment: .leading, spacing: 14) {
                 HStack(alignment: .top) {
-                    SectionHeader(title: "How well does Bakdo understand you?",
+                    SectionHeader(title: "How well does Inscribo understand you?",
                                   detail: "Runs the speech model over your recordings and compares what it heard with what you said.")
                     Spacer()
                     Button(checker.isRunning ? "Checking…" : "Check accuracy") { checker.run() }

@@ -7,11 +7,11 @@ struct DictionaryView: View {
     @State private var newTo = ""
 
     var body: some View {
-        PageScaffold(title: "Dictionary", subtitle: "Teach Bakdo the names and words you use, and fix anything it keeps getting wrong.") {
+        PageScaffold(title: "Dictionary", subtitle: "Teach Inscribo the names and words you use, and fix anything it keeps getting wrong.") {
             Card {
                 VStack(alignment: .leading, spacing: 12) {
                     SectionHeader(title: "Vocabulary",
-                                  detail: "Names, product terms and jargon. Bakdo hints these to the model so they're spelled right.")
+                                  detail: "Names, product terms and jargon. Inscribo hints these to the model so they're spelled right.")
                     HStack {
                         TextField("Add a word or name, e.g. Priya, Kubernetes, Figma", text: $newWord)
                             .textFieldStyle(.roundedBorder)
@@ -39,7 +39,7 @@ struct DictionaryView: View {
             Card {
                 VStack(alignment: .leading, spacing: 12) {
                     SectionHeader(title: "Replacements & snippets",
-                                  detail: "Whenever Bakdo hears the left side, it types the right side. Use it to fix spellings (Versal → Vercel) or expand shortcuts (my email → you@company.com).")
+                                  detail: "Whenever Inscribo hears the left side, it types the right side. Use it to fix spellings (Versal → Vercel) or expand shortcuts (my email → you@company.com).")
                     HStack(spacing: 8) {
                         TextField("When I say…", text: $newFrom)
                             .textFieldStyle(.roundedBorder)

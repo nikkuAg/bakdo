@@ -84,13 +84,14 @@ private struct PillContainer: View {
     }
 }
 
-/// Brand colours for the pill: the app icon's violet → blue, with a pink accent.
+/// Spell light: the icon's gold quill, a warm amber and a touch of night-sky violet.
 private enum PillPalette {
-    static let violet = Color(red: 0.61, green: 0.42, blue: 1.00)
-    static let blue = Color(red: 0.24, green: 0.48, blue: 1.00)
-    static let pink = Color(red: 1.00, green: 0.37, blue: 0.66)
-    static let ring: [Color] = [violet, blue, pink, violet]
-    static let wave = Gradient(colors: [violet, blue, pink])
+    static let gold = Color(red: 1.00, green: 0.86, blue: 0.50)
+    static let amber = Color(red: 0.96, green: 0.65, blue: 0.22)
+    static let violet = Color(red: 0.62, green: 0.46, blue: 1.00)
+    static let ink = Color(red: 0.07, green: 0.055, blue: 0.14)
+    static let ring: [Color] = [gold, violet, amber, gold]
+    static let wave = Gradient(colors: [violet, gold, amber, gold, violet])
 }
 
 struct PillView: View {
@@ -133,8 +134,8 @@ struct PillView: View {
         case .idle: return CGSize(width: 38, height: 7)
         case .recording: return CGSize(width: 184, height: 44)
         case .handsFree: return CGSize(width: 262, height: 44)
-        case .transcribing: return CGSize(width: 132, height: 40)
-        case .fixing: return CGSize(width: 132, height: 40)
+        case .transcribing: return CGSize(width: 168, height: 40)
+        case .fixing: return CGSize(width: 150, height: 40)
         case .done(let text): return CGSize(width: CGFloat(text.count) * 7.4 + 62, height: 36)
         case .message(let text, _): return CGSize(width: min(320, CGFloat(text.count) * 7.2 + 56), height: 36)
         }
@@ -194,6 +195,7 @@ struct PillView: View {
             HStack(spacing: 10) {
                 LiveDot()
                 LiveWave(levels: controller.levels, barCount: 22, maxHeight: 30)
+                    .overlay { RisingSparkles(energy: energy).allowsHitTesting(false) }
             }
             .padding(.horizontal, 16)
         case .handsFree:
@@ -201,32 +203,40 @@ struct PillView: View {
                 PillButton(symbol: "xmark", tint: .white.opacity(0.14)) { controller.cancelFromUI() }
                 LiveDot()
                 LiveWave(levels: controller.levels, barCount: 18, maxHeight: 28)
+                    .overlay { RisingSparkles(energy: energy).allowsHitTesting(false) }
                 ElapsedTime(since: controller.recordingStartedAt)
-                PillButton(symbol: "stop.fill", tint: PillPalette.blue) { controller.toggleHandsFree() }
+                PillButton(symbol: "stop.fill", tint: PillPalette.amber) { controller.toggleHandsFree() }
             }
             .padding(.horizontal, 8)
         case .transcribing:
             HStack(spacing: 8) {
                 SparkleIcon()
+                Text("Inscribing")
+                    .font(.system(size: 12.5, weight: .semibold, design: .serif))
+                    .foregroundStyle(PillPalette.gold)
                 ThinkingWave()
             }
         case .fixing:
             HStack(spacing: 8) {
-                Image(systemName: "wand.and.stars")
+                Image(systemName: "sparkles")
                     .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(LinearGradient(gradient: PillPalette.wave, startPoint: .leading, endPoint: .trailing))
+                    .foregroundStyle(PillPalette.gold)
                     .symbolEffect(.pulse, options: .repeating)
+                Text("Reparo")
+                    .font(.system(size: 12.5, weight: .semibold, design: .serif))
+                    .italic()
+                    .foregroundStyle(PillPalette.gold)
                 ThinkingWave()
             }
         case .done(let text):
             HStack(spacing: 7) {
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundStyle(.white, Color(red: 0.20, green: 0.80, blue: 0.50))
+                Image(systemName: "wand.and.stars")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(PillPalette.gold)
                     .symbolEffect(.bounce, value: text)
                 Text(text)
-                    .font(.system(size: 12.5, weight: .semibold))
-                    .foregroundStyle(.white)
+                    .font(.system(size: 13, weight: .semibold, design: .serif))
+                    .foregroundStyle(PillPalette.gold)
             }
         case .message(let text, let isError):
             HStack(spacing: 7) {
@@ -262,7 +272,7 @@ private struct LiveChrome: View {
                     .opacity(0.28 + 0.12 * breathe + energy * 0.55)
                     .scaleEffect(x: 1.02 + energy * 0.10, y: 1.05 + energy * 0.35)
                 Capsule()
-                    .fill(Color(red: 0.06, green: 0.05, blue: 0.10).opacity(0.94))
+                    .fill(PillPalette.ink.opacity(0.95))
                 Capsule()
                     .fill(LinearGradient(colors: [.white.opacity(0.10), .clear], startPoint: .top, endPoint: .center))
                 Capsule()
@@ -280,11 +290,11 @@ private struct StaticChrome: View {
     var body: some View {
         ZStack {
             Capsule()
-                .fill(idle ? Color.black.opacity(0.5) : Color(red: 0.06, green: 0.05, blue: 0.10).opacity(0.94))
+                .fill(idle ? Color.black.opacity(0.5) : PillPalette.ink.opacity(0.95))
             Capsule()
                 .strokeBorder(
                     success
-                        ? AnyShapeStyle(Color(red: 0.20, green: 0.80, blue: 0.50).opacity(0.7))
+                        ? AnyShapeStyle(LinearGradient(colors: [PillPalette.gold, PillPalette.amber], startPoint: .leading, endPoint: .trailing))
                         : AnyShapeStyle(LinearGradient(colors: PillPalette.ring, startPoint: .leading, endPoint: .trailing)
                             .opacity(idle ? 0.55 : 0.6)),
                     lineWidth: idle ? 1 : 1.2
@@ -332,6 +342,39 @@ private struct LiveWave: View {
     }
 }
 
+/// Little four-point stars drifting up off the waveform, like sparks from a wand.
+/// More of them, and brighter, the louder you speak.
+private struct RisingSparkles: View {
+    let energy: Double
+
+    var body: some View {
+        TimelineView(.animation) { context in
+            let t = context.date.timeIntervalSinceReferenceDate
+            Canvas { gc, size in
+                for i in 0..<14 {
+                    let seed = Double(i) * 0.6180339887
+                    let speed = 0.45 + (seed * 7).truncatingRemainder(dividingBy: 1) * 0.5
+                    let phase = (t * speed + seed).truncatingRemainder(dividingBy: 1)
+                    let visibility = sin(.pi * phase) * min(1, 0.25 + energy * 1.6)
+                    guard visibility > 0.05 else { continue }
+                    let x = (seed * 13).truncatingRemainder(dividingBy: 1) * size.width
+                        + sin(t * 2 + Double(i)) * 3
+                    let y = size.height * (1.1 - phase * 1.7)
+                    let r = (1.2 + (1 - phase) * 2.6) * (0.7 + energy * 0.8)
+                    var star = Path()
+                    star.move(to: CGPoint(x: x, y: y - r * 1.6))
+                    star.addQuadCurve(to: CGPoint(x: x + r * 1.6, y: y), control: CGPoint(x: x, y: y))
+                    star.addQuadCurve(to: CGPoint(x: x, y: y + r * 1.6), control: CGPoint(x: x, y: y))
+                    star.addQuadCurve(to: CGPoint(x: x - r * 1.6, y: y), control: CGPoint(x: x, y: y))
+                    star.addQuadCurve(to: CGPoint(x: x, y: y - r * 1.6), control: CGPoint(x: x, y: y))
+                    gc.fill(star, with: .color(Color(red: 1, green: 0.93, blue: 0.70).opacity(visibility)))
+                }
+            }
+        }
+        .padding(.vertical, -12)
+    }
+}
+
 /// While the models work: a travelling wave of dots in the brand gradient.
 private struct ThinkingWave: View {
     var body: some View {
@@ -359,9 +402,9 @@ private struct ThinkingWave: View {
 
 private struct SparkleIcon: View {
     var body: some View {
-        Image(systemName: "sparkles")
+        Image(systemName: "wand.and.stars")
             .font(.system(size: 13, weight: .semibold))
-            .foregroundStyle(LinearGradient(gradient: PillPalette.wave, startPoint: .topLeading, endPoint: .bottomTrailing))
+            .foregroundStyle(PillPalette.gold)
             .symbolEffect(.variableColor.iterative, options: .repeating)
     }
 }
@@ -374,12 +417,13 @@ private struct LiveDot: View {
             let p = (t * 0.9).truncatingRemainder(dividingBy: 1)
             ZStack {
                 Circle()
-                    .stroke(PillPalette.pink, lineWidth: 1.5)
+                    .stroke(PillPalette.gold, lineWidth: 1.5)
                     .frame(width: 7 + 10 * p, height: 7 + 10 * p)
                     .opacity(1 - p)
                 Circle()
-                    .fill(PillPalette.pink)
+                    .fill(RadialGradient(colors: [.white, PillPalette.gold], center: .center, startRadius: 0, endRadius: 4))
                     .frame(width: 7, height: 7)
+                    .shadow(color: PillPalette.gold, radius: 4)
             }
             .frame(width: 18, height: 18)
         }

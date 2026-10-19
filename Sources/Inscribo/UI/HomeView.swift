@@ -16,7 +16,7 @@ struct HomeView: View {
     }
 
     var body: some View {
-        PageScaffold(title: greeting, subtitle: "Bas bak do — in English, Hindi or Hinglish. Bakdo types it wherever your cursor is.") {
+        PageScaffold(title: greeting, subtitle: "Speak, and it shall be inscribed — in English, Hindi or Hinglish, wherever your cursor is.") {
             HStack(spacing: 6) {
                 Text("Hold").foregroundStyle(.secondary)
                 KeyCap(text: settings.triggerKey.shortLabel)
@@ -34,7 +34,7 @@ struct HomeView: View {
                 HStack(spacing: 6) {
                     Text("Select any text and press").foregroundStyle(.secondary)
                     KeyCap(text: settings.fixShortcut.display)
-                    Text("to fix its grammar and typos.").foregroundStyle(.secondary)
+                    Text("to cast Reparo and fix its grammar and typos.").foregroundStyle(.secondary)
                 }
                 .font(.system(size: 12.5))
                 .padding(.top, -16)
@@ -129,7 +129,7 @@ private struct TryItCard: View {
         Card(padding: 14) {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Label("Try it here", systemImage: "sparkles")
+                    Label("Practice the charm", systemImage: "wand.and.stars")
                         .font(.system(size: 12.5, weight: .semibold))
                         .foregroundStyle(Theme.accent)
                     if controller.phase == .recording && controller.committed {
@@ -181,8 +181,8 @@ private struct EmptyHistory: View {
             VStack(spacing: 10) {
                 Image(systemName: "waveform.badge.mic")
                     .font(.system(size: 30))
-                    .foregroundStyle(Theme.gradient)
-                Text("Your dictations will show up here")
+                    .foregroundStyle(Theme.goldGradient)
+                Text("Your inscriptions will appear here")
                     .font(.system(size: 14, weight: .medium))
                 Text("Everything stays on this Mac. Nothing is sent to the cloud.")
                     .font(.system(size: 12))
@@ -300,7 +300,7 @@ struct IconButton: View {
     }
 }
 
-/// Correct a transcript. Bakdo compares the fix with what it heard and offers to remember
+/// Correct a transcript. Inscribo compares the fix with what it heard and offers to remember
 /// recurring mistakes as Dictionary replacements.
 private struct EditTranscript: View {
     let item: Transcript
@@ -312,7 +312,7 @@ private struct EditTranscript: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(saved ? "Saved — remember these fixes?" : "Fix what Bakdo got wrong")
+            Text(saved ? "Saved — remember these fixes?" : "Fix what Inscribo got wrong")
                 .font(.system(size: 13, weight: .semibold))
             if !saved {
                 TextEditor(text: $text)

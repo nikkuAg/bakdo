@@ -1,7 +1,8 @@
-# Bakdo icon
+# Inscribo icon
 
-`app-icon.svg` is the source of the app icon ("wave to cursor": sound bars becoming a text cursor).
-The in-app logo and menu bar glyph (`BrandMark` in `Sources/Bakdo/UI/Theme.swift`) use the same geometry.
+`app-icon.svg` is the source of the app icon: a golden quill on a starry midnight sky, its nib writing a
+sparkling sound wave that settles into a line of text. The app shows this artwork in its sidebar and welcome
+screen; the menu bar uses the `wand.and.stars` symbol (`BrandMark` in `Sources/Inscribo/UI/Theme.swift`).
 
 Regenerate `AppIcon.icns` after editing the SVG:
 
@@ -16,4 +17,4 @@ cp px512.png AppIcon.iconset/icon_512x512.png;  cp px1024.png AppIcon.iconset/ic
 iconutil -c icns AppIcon.iconset -o AppIcon.icns && rm -rf AppIcon.iconset px*.png
 ```
 
-The other `concept-*.svg` files are the alternatives that were considered.
+`archive/` holds earlier icon concepts from when the app was called Bakdo.

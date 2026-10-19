@@ -1,6 +1,6 @@
-# Installing Bakdo
+# Installing Inscribo
 
-This guide takes you from nothing to a working Bakdo in about 10 minutes, most of it downloads.
+This guide takes you from nothing to a working Inscribo in about 10 minutes, most of it downloads.
 
 - [1. Check your Mac](#1-check-your-mac)
 - [2. Install Apple's developer tools](#2-install-apples-developer-tools)
@@ -19,7 +19,7 @@ Check from  › About This Mac: the *Chip* line should say Apple M-something.
 
 ## 2. Install Apple's developer tools
 
-Bakdo is built from source with Swift. You only need Apple's free Command Line Tools, not the full Xcode:
+Inscribo is built from source with Swift. You only need Apple's free Command Line Tools, not the full Xcode:
 
 ```bash
 xcode-select --install
@@ -38,8 +38,8 @@ You should see `Swift version 6.x` or newer. If it's older, update the tools fro
 ## 3. Get the code
 
 ```bash
-git clone https://github.com/nikkuAg/bakdo.git
-cd bakdo
+git clone https://github.com/nikkuAg/inscribo.git
+cd inscribo
 ```
 
 No git? Download the ZIP from the GitHub page (**Code › Download ZIP**), unzip it, and `cd` into the folder in Terminal.
@@ -55,10 +55,10 @@ This runs three steps, which you can also run one at a time:
 | Step | Command | What it does |
 |---|---|---|
 | Setup | `./scripts/setup.sh` | Checks macOS, chip and Swift version, then downloads the pinned **whisper.cpp** and **llama.cpp** frameworks (~130 MB) into `Vendor/`, verifying their SHA-256 checksums |
-| Build | `./scripts/build-app.sh` | Compiles a release build, assembles `build/Bakdo.app`, and signs it ad-hoc |
+| Build | `./scripts/build-app.sh` | Compiles a release build, assembles `build/Inscribo.app`, and signs it ad-hoc |
 | Install | `./scripts/build-app.sh --install` | Same as Build, then copies the app to `/Applications` (replacing any older copy) |
 
-The first build takes a minute or two. When it's done, Bakdo opens.
+The first build takes a minute or two. When it's done, Inscribo opens.
 
 ## 5. First launch
 
@@ -67,9 +67,9 @@ The welcome screen walks you through four steps:
 1. **Welcome.**
 2. **Permissions.**
    - **Microphone:** click *Grant* and allow it.
-   - **Accessibility:** click *Grant*. macOS opens System Settings › Privacy & Security › **Accessibility**. Switch **Bakdo** on, then come back. The page updates by itself.
+   - **Accessibility:** click *Grant*. macOS opens System Settings › Privacy & Security › **Accessibility**. Switch **Inscribo** on, then come back. The page updates by itself.
 
-     Bakdo needs Accessibility to notice when you hold the dictation key in other apps, and to paste text into them.
+     Inscribo needs Accessibility to notice when you hold the dictation key in other apps, and to paste text into them.
 3. **Models.** Both models download automatically (~1.9 GB in total) over several parallel connections. The download resumes if you quit halfway, and each file is checksum-verified before use. You can continue as soon as the speech model is ready; the writing (grammar) model can finish in the background.
 4. **Try it.** Hold <kbd>space</kbd> in the practice box, or hold <kbd>fn</kbd> anywhere.
 
@@ -79,45 +79,45 @@ By default macOS uses the Globe key for the emoji picker or input switching. Tur
 
 **System Settings › Keyboard › Press 🌐 key to › Do Nothing**
 
-If you'd rather keep the Globe key as it is, pick **Right ⌥ Option**, **Right ⌘ Command** or **Right ⌃ Control** as the dictation key in Bakdo › Settings › Shortcut.
+If you'd rather keep the Globe key as it is, pick **Right ⌥ Option**, **Right ⌘ Command** or **Right ⌃ Control** as the dictation key in Inscribo › Settings › Shortcut.
 
 ### Start at login (optional)
 
-Bakdo › Settings › App › **Open at login**.
+Inscribo › Settings › App › **Open at login**.
 
 ## Updating
 
 ```bash
-cd bakdo
+cd inscribo
 git pull
 ./scripts/install.sh
 ```
 
 Your history, dictionary, settings and downloaded models are kept.
 
-> **You'll need to re-grant Accessibility after every update.** Builds are signed locally (ad-hoc), so macOS sees each new build as a different app. In System Settings › Privacy & Security › Accessibility, select **Bakdo**, click **−**, then click *Grant* in Bakdo again. (Switching the old entry off and on is not enough.)
+> **You'll need to re-grant Accessibility after every update.** Builds are signed locally (ad-hoc), so macOS sees each new build as a different app. In System Settings › Privacy & Security › Accessibility, select **Inscribo**, click **−**, then click *Grant* in Inscribo again. (Switching the old entry off and on is not enough.)
 
 ## Uninstalling
 
 ```bash
 # Quit and remove the app
-osascript -e 'quit app "Bakdo"'
-rm -rf /Applications/Bakdo.app
+osascript -e 'quit app "Inscribo"'
+rm -rf /Applications/Inscribo.app
 
 # Remove models, history, dictionary and training recordings (~2 GB)
-rm -rf ~/Library/Application\ Support/Bakdo
+rm -rf ~/Library/Application\ Support/Inscribo
 
 # Remove settings
-defaults delete app.bakdo.mac
+defaults delete app.inscribo.mac
 ```
 
-Then remove Bakdo from System Settings › Privacy & Security › **Accessibility** and **Microphone** with the **−** button.
+Then remove Inscribo from System Settings › Privacy & Security › **Accessibility** and **Microphone** with the **−** button.
 
 ## Troubleshooting
 
 **Holding fn does nothing**
-- Check Bakdo shows *Ready* in its sidebar, or in the menu bar icon's menu.
-- Accessibility must be granted to the *current* build. If Bakdo is already switched on in the list but the app still says *Grant*, remove the entry with **−** and grant again (see [Updating](#updating)).
+- Check Inscribo shows *Ready* in its sidebar, or in the menu bar icon's menu.
+- Accessibility must be granted to the *current* build. If Inscribo is already switched on in the list but the app still says *Grant*, remove the entry with **−** and grant again (see [Updating](#updating)).
 - Make sure *Press 🌐 key to* is set to **Do Nothing**, or choose a different dictation key in Settings.
 
 **The emoji picker pops up when I dictate:** set *Press 🌐 key to* → **Do Nothing** (see above).
@@ -133,7 +133,7 @@ Then remove Bakdo from System Settings › Privacy & Security › **Accessibilit
 - For words it keeps mishearing, add a **Replacement** (e.g. Versal → Vercel).
 - Use **Voice training › Check accuracy** to find your most misheard words, and fix them in one click.
 
-**Model download failed or is stuck:** open Settings and use *Try again*. Downloads resume where they stopped. Models live in `~/Library/Application Support/Bakdo/Models`.
+**Model download failed or is stuck:** open Settings and use *Try again*. Downloads resume where they stopped. Models live in `~/Library/Application Support/Inscribo/Models`.
 
 **`setup.sh` says Swift is too old:** install the latest Command Line Tools (`softwareupdate --list`, or reinstall them with `sudo rm -rf /Library/Developer/CommandLineTools && xcode-select --install`).
 

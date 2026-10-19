@@ -16,9 +16,9 @@ enum Page: String, CaseIterable, Identifiable {
 
     var symbol: String {
         switch self {
-        case .home: return "house"
-        case .dictionary: return "character.book.closed"
-        case .voice: return "person.wave.2"
+        case .home: return "wand.and.stars"
+        case .dictionary: return "book.closed"
+        case .voice: return "graduationcap"
         case .settings: return "gearshape"
         }
     }
@@ -40,7 +40,7 @@ struct MainView: View {
                         .frame(width: 216)
                     content
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color(nsColor: .windowBackgroundColor))
+                        .background(Theme.page)
                         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(Color.primary.opacity(0.06)))
                         .shadow(color: .black.opacity(0.04), radius: 6, y: 1)
@@ -77,7 +77,7 @@ private struct Sidebar: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 9) {
                 AppMark(size: 26)
-                Text("Bakdo")
+                Text("Inscribo")
                     .font(.system(size: 19, weight: .semibold, design: .serif))
             }
             .padding(.leading, 10)
@@ -142,7 +142,7 @@ private struct StatusCard: View {
                 Label("Permissions needed", systemImage: "exclamationmark.triangle.fill")
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(Theme.warm)
-                Text("Bakdo needs microphone and accessibility access to type for you.")
+                Text("Inscribo needs microphone and accessibility access to type for you.")
                     .font(.system(size: 11))
                     .foregroundStyle(.secondary)
                 Button("Fix in Settings") { page = .settings }
@@ -164,7 +164,7 @@ private struct StatusCard: View {
                 case .ready:
                     HStack(spacing: 6) {
                         Circle().fill(Color.green).frame(width: 7, height: 7)
-                        Text("Ready").font(.system(size: 12, weight: .semibold))
+                        Text("Wand ready").font(.system(size: 12, weight: .semibold))
                     }
                     HStack(spacing: 4) {
                         Text("Hold")
