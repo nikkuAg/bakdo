@@ -12,6 +12,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     private let settings = AppSettings.shared
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // Only one Inscribo may run: two copies would both catch the shortcut and paste twice.
+        let others = NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.bundleIdentifier ?? "")
+            .filter { $0 != NSRunningApplication.current }
+        if let existing = others.first {
+            existing.activate()
+            NSApp.terminate(nil)
+            return
+        }
         AppDelegate.shared = self
         buildMainMenu()
         applyDockPreference()

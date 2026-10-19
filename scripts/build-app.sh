@@ -60,6 +60,8 @@ if [[ "${1:-}" == "--install" ]]; then
   pkill -x Inscribo 2>/dev/null || true
   sleep 0.5
   rm -rf /Applications/Inscribo.app
-  cp -R "$APP" /Applications/Inscribo.app
+  # Move rather than copy: a second Inscribo.app left in build/ could be launched too, and two
+  # running copies would both catch the shortcut and type every dictation twice.
+  mv "$APP" /Applications/Inscribo.app
   echo "Installed /Applications/Inscribo.app"
 fi
